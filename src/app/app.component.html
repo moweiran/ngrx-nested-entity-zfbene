@@ -1,0 +1,16 @@
+<h2>Customers:</h2>
+
+<div *ngFor="let customer of (customers$ | async)">
+	<h3>{{ customer.name }}</h3>
+
+	<input #sku (keydown.enter)="addArticle(customer.id, sku)"/>
+	<button (click)="addArticle(customer.id, sku)">Add article</button>
+	<div *ngFor="let articleKVP of customer.articles.entities | keyvalue">
+		{{ articleKVP.value.sku }}
+		<img style="height:80px;width:80px" src="https://static.lwtch.com/File/Image/Single/Thumb/{{articleKVP.value.imgid}}" />
+		<button (click)="increment(customer.id, articleKVP.value.sku)">Increment</button>
+		<span>{{ articleKVP.value.amount }} </span>
+		<button (click)="decrement(customer.id, articleKVP.value.sku)">Decrement</button>
+	</div>
+
+</div>
